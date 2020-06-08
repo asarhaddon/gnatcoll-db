@@ -42,6 +42,7 @@ project GnatColl_SQL is
       use "lib/" & Project'Library_Kind;
    for Library_Name    use Name;
    for Library_Version use "lib" & Name & Gnatcoll.So_Ext & "." & Version;
+   for Leading_Library_Options use External_As_List ("LDFLAGS", " ");
 
    for Languages use ("Ada");
 
@@ -57,7 +58,8 @@ project GnatColl_SQL is
 
          when "PROD" =>
             --  Do not use -gnatwe for production mode
-            for Switches ("Ada") use ("-O2", "-gnatn", "-gnatwaCJ");
+            for Switches ("Ada") use ("-O2", "-gnatn", "-gnatwaCJ")
+              & External_As_List ("ADAFLAGS", " ");
       end case;
    end Compiler;
 
